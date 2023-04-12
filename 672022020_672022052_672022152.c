@@ -639,8 +639,21 @@ void Sort_Book(){
 		for(i=1; i <= totalbuku; i++) {
 			puts(namabuku[i]);
 		}
+	}else{
+		for(i = 0; i < totalbuku; i++) {
+			for(j = i + 1; j < totalbuku; j++) {
+				if(strcmp(namabuku[i],namabuku[j])<0) {
+					strcpy(So,namabuku[i]);
+					strcpy(namabuku[i],namabuku[j]);
+					strcpy(namabuku[j],So);
+				}
+			}
+		}
+		printf("\nSorted Books (Descending):\n");
+		for(i=1; i <= totalbuku; i++) {
+			puts(namabuku[i]);
+		}
 	}
-	
 	system("pause");
 }
 
