@@ -49,8 +49,8 @@ void Login_Animation(){
 		}
 		
 		if(login_failed==0){
-			for (i=1;i<=4000;i++)
-				for (j=1;j<=4000;j++);
+			for (i=1;i<=3000;i++)
+				for (j=1;j<=3000;j++);
 		}
 	}
 }
@@ -310,7 +310,6 @@ void Update_Book(){
 			printf("Publication Date: "); scanf(" %[^\n]s",&Book->Tanggal_Terbit);
 			printf("PLace of Publication: "); scanf(" %[^\n]s",&Book->Tempat_Terbit);
 			fprintf(fp,"Title: %s\nAuthor: %s\nPublisher: %s\nPublication Date: %s\nPLace of Publication: %s\n", namabuku[a],Book->Pengarang,Book->Penerbit,Book->Tanggal_Terbit,Book->Tempat_Terbit);
-			
 		    
 		    printf("\n\nAdd Data Sukses!!!");
 		}else{
@@ -464,7 +463,36 @@ void Delete_Book(){
 }
 
 void Search_Book(){
+	int nomor, y=1;
 	
+	system("cls");
+	y++;
+	gotoxy(1,y);
+	printf("Select the book you want to search: ");
+	scanf(" %i", &nomor);
+	nomor = getch();
+	printf("%c ", nomor);
+	if(nomor == 49) nomor = 1;
+	else if(nomor == 50) nomor = 2;
+	else if(nomor == 51) nomor = 3;
+	else if(nomor == 52) nomor = 4;
+	else if(nomor == 53) nomor = 5;
+	else if(nomor == 54) nomor = 6;
+	else if(nomor == 55) nomor = 7;
+	else if(nomor == 56) nomor = 8;
+	else if(nomor == 57) nomor = 9;
+	else nomor = 0;
+
+	y++;
+	int idx=0,pos=-1;
+	for (idx = 0 ; idx < sizeof(namabuku[nomor]) ; idx++){
+		if (strcmp(namabuku[idx],namabuku[nomor])==0){
+			pos = idx;
+			break;
+		}
+	}
+
+	printf("%s\n",namabuku[pos]);
 }
 
 void Sort_Book(){
