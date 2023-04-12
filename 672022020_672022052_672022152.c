@@ -507,9 +507,9 @@ void Sort_Book(){
 	if(Sort<1 || Sort>2) {
 		system("cls");
 		goto Sort;
-	}else if(Sort==1){
-		for(i = 1; i <= totalbuku; i++) {
-			for(j = i + 1; j <= totalbuku; j++) {
+	} else if(Sort==1){
+		for(i = 0; i < totalbuku; i++) {
+			for(j = i + 1; j < totalbuku; j++) {
 				if(strcmp(namabuku[i],namabuku[j])>0) {
 					strcpy(So,namabuku[i]);
 					strcpy(namabuku[i],namabuku[j]);
@@ -518,6 +518,20 @@ void Sort_Book(){
 			}
 		}
 		printf("\nSorted Books (Ascending):\n");
+		for(i=1; i <= totalbuku; i++) {
+			puts(namabuku[i]);
+		}
+	} else {
+		for(i = 0; i < totalbuku; i++) {
+			for(j = i + 1; j < totalbuku; j++) {
+				if(strcmp(namabuku[i],namabuku[j])<0) {
+					strcpy(So,namabuku[i]);
+					strcpy(namabuku[i],namabuku[j]);
+					strcpy(namabuku[j],So);
+				}
+			}
+		}
+		printf("\nSorted Books (Descending):\n");
 		for(i=1; i <= totalbuku; i++) {
 			puts(namabuku[i]);
 		}
