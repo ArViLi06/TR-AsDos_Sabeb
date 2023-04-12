@@ -93,23 +93,19 @@ void Login(){
 	}
 	Password[i] = '\0';
 	
-	if((strcmp(Username, "admin") == 0) && (strcmp(Password, "cantik") == 0)){
+	if((strcmp(Username, "Ellen") == 0) && (strcmp(Password, "Cantik") == 0)){
 		login_failed = 0;
 		system("cls");
 		Main_menu();
-	}else if((strcmp(Username, "admin") == 0) && (strcmp(Password, "ganteng") == 0)){
+	} else if((strcmp(Username, "Ariel") == 0) || (strcmp(Username, "Sando") == 0) && (strcmp(Password, "Ganteng") == 0)) {
 		login_failed = 0;
 		system("cls");
 		Main_menu();
-	}else if (strcmp(Username, "admin") != 0){
+	} else if (strcmp(Username, "Ellen") != 0 || strcmp(Username, "Ariel") != 0 || strcmp(Username, "Sando") != 0) {
 		login_failed = 2;
 		system("cls");
 		Login();
-	}else if(strcmp(Password, "cantik") != 0){
-		login_failed = 1;
-		system("cls");
-		Login();
-	}else if(strcmp(Password, "ganteng") != 0){
+	} else if(strcmp(Password, "Cantik") != 0 || strcmp(Password, "Ganteng") != 0) {
 		login_failed = 1;
 		system("cls");
 		Login();
