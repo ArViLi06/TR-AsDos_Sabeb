@@ -10,7 +10,7 @@ void gotoxy(int x, int y){
 }
 
 FILE *fp;
-int Account, CheckUsername, CheckPassword[2], totalbuku = 1;
+int Account, CheckUsername, CheckPassword[2], totalbuku = 1, ulang_animasi=0;
 char Username[20], login_failed = 0, namabuku[][50], Manual[100], ManualBook[100];
 char alamat[100] = "E:\\School Property\\Tugas\\C Files 3\\TAS_ASDOS_ASD\\"; // ganti alamat sesuai lokasi file ini disimpan
 
@@ -25,7 +25,7 @@ void main(){
 void Login_Animation(){
 	int end, count, i, j, x=10, y=5;
 	
-	while (count!=176){
+	while (count!=179){
 		gotoxy(x, y);
 		printf("%c", 475);
 		
@@ -33,22 +33,55 @@ void Login_Animation(){
 		
 		if(count<50){
 			x++;
-		}else if(count>=50 && count < 65){
+		}else if(count>=50 && count < 66){
 			y++;
-		}else if(count>= 65 && count < 114){
+		}else if(count>= 66 && count < 115){
 			x--;
-		}else if(count>= 114 && count < 128){
+		}else if(count>= 115 && count < 131){
 			y--;
-		}else if(count>= 128 && count < 176){
+		}else if(count>= 131 && count < 179){
 			x++;
 		}
 		
-		if(count == 128){
+		if(count == 131){
 			x=11;
 			y=11;
 		}
 		
-		if(login_failed==0){
+		if(ulang_animasi==0){
+			for (i=1;i<=3000;i++)
+				for (j=1;j<=3000;j++);
+		}
+	}
+}
+
+void Menu_Animation(){
+	int end, count, i, j, x=1, y=1;
+	
+	while (count!=228){
+		gotoxy(x, y);
+		printf("%c", 475);
+		
+		count++;
+		
+		if(count<60){
+			x++;
+		}else if(count>=60 && count < 86){
+			y++;
+		}else if(count>= 86 && count < 145){
+			x--;
+		}else if(count>= 145 && count < 170){
+			y--;
+		}else if(count>= 170 && count < 228){
+			x++;
+		}
+		
+		if(count == 170){
+			x=2;
+			y=7;
+		}
+		
+		if(ulang_animasi==0){
 			for (i=1;i<=3000;i++)
 				for (j=1;j<=3000;j++);
 		}
@@ -72,9 +105,9 @@ void Login(){
     gotoxy(28,8);
     printf("Please Log In");
 	
-	gotoxy(25,15);
+	gotoxy(26,15);
     printf("Username: "); scanf(" %s", &Username);
-    gotoxy(25,16);
+    gotoxy(26,16);
 	printf("Password: ");
 	
 	while((Input = getch()) != 13){
@@ -93,81 +126,170 @@ void Login(){
 	}
 	Password[i] = '\0';
 	
-	if((strcmp(Username, "Ellen") == 0) && (strcmp(Password, "Cantik") == 0)){
+	if((strcmp(Username, "admin") == 0) && (strcmp(Password, "cantik") == 0)){
 		login_failed = 0;
+		ulang_animasi=0;
 		system("cls");
 		Main_menu();
-	} else if((strcmp(Username, "Ariel") == 0) || (strcmp(Username, "Sando") == 0) && (strcmp(Password, "Ganteng") == 0)) {
+	}else if((strcmp(Username, "admin") == 0) && (strcmp(Password, "ganteng") == 0)){
 		login_failed = 0;
+		ulang_animasi=0;
 		system("cls");
 		Main_menu();
-	} else if (strcmp(Username, "Ellen") != 0 || strcmp(Username, "Ariel") != 0 || strcmp(Username, "Sando") != 0) {
+	}else if (strcmp(Username, "admin") != 0){
 		login_failed = 2;
+		ulang_animasi=1;
 		system("cls");
 		Login();
-	} else if(strcmp(Password, "Cantik") != 0 || strcmp(Password, "Ganteng") != 0) {
+	}else if(strcmp(Password, "cantik") != 0){
 		login_failed = 1;
+		ulang_animasi=1;
+		system("cls");
+		Login();
+	}else if(strcmp(Password, "ganteng") != 0){
+		login_failed = 1;
+		ulang_animasi=1;
 		system("cls");
 		Login();
 	}
 }
 
 void Main_menu(){
-	char Menu;
+	char menu=1, key=0;
+	int i, j;
 	
-	gotoxy(20,1);
+	Menu_Animation();
+	ulang_animasi++;
+	
+	gotoxy(18,10);
+	printf("-->");
+	
+	gotoxy(14,4);
     printf("Welcome to Sabeb's Library, %s!", Username);
-	gotoxy(1,3);
+	gotoxy(22,10);
 	printf("1. Add Book");
-	gotoxy(1,4);
+	gotoxy(22,12);
 	printf("2. Read Book");
-	gotoxy(1,5);
+	gotoxy(22,14);
 	printf("3. Update Book");
-	gotoxy(1,6);
+	gotoxy(22,16);
 	printf("4. Delete Book");
-	gotoxy(1,7);
+	gotoxy(22,18);
 	printf("5. Search Book");
-	gotoxy(1,8);
+	gotoxy(22,20);
 	printf("6. Sort Book");
-	gotoxy(1,9);
+	gotoxy(22,22);
 	printf("7. Log Out");
-	gotoxy(1,10);
+	gotoxy(22,24);
 	printf("8. Exit");
-	gotoxy(1,12);
-	printf("Choose: "); scanf(" %c", &Menu);
 	
-	if(Menu == '1'){
-		Add_Book();
+	while(key=getch()){
+		if(key=='s'){
+			menu+=1;
+		}else if(key=='w'){
+			menu-=1;
+		}
+		
+		if(menu<1){
+			menu=8;
+		}else if(menu>8){
+			menu=1;
+		}
+		
 		system("cls");
-		Main_menu();
-	}else if(Menu == '2'){
-		Read_Book();
-		system("cls");
-		Main_menu();
-	}else if(Menu == '3'){
-		Update_Book();
-		system("cls");
-		Main_menu();
-	}else if(Menu == '4'){
-		Delete_Book();
-		system("cls");
-		Main_menu();
-	}else if(Menu == '5'){
-		Search_Book();
-		system("cls");
-		Main_menu();
-	}else if(Menu == '6'){
-		Sort_Book();
-		system("cls");
-		Main_menu();
-	}else if(Menu == '7'){
-		system("cls");
-		main();
-	}else if(Menu == '8'){
-		exit(0);
-	}else{
-		system("cls");
-		Main_menu();
+		
+		
+		if(ulang_animasi==0){
+			system("cls");
+		}else{
+			gotoxy(14,4);
+		    printf("Welcome to Sabeb's Library, %s!", Username);
+			gotoxy(22,10);
+			printf("1. Add Book");
+			gotoxy(22,12);
+			printf("2. Read Book");
+			gotoxy(22,14);
+			printf("3. Update Book");
+			gotoxy(22,16);
+			printf("4. Delete Book");
+			gotoxy(22,18);
+			printf("5. Search Book");
+			gotoxy(22,20);
+			printf("6. Sort Book");
+			gotoxy(22,22);
+			printf("7. Log Out");
+			gotoxy(22,24);
+			printf("8. Exit");
+		}
+		
+		ulang_animasi++;
+		Menu_Animation();
+		
+		if(menu == 1){
+			gotoxy(18, 10);
+			printf("-->");
+			if(key==13){
+				Add_Book();
+				system("cls");
+				Main_menu();
+			}
+		}if(menu == 2){
+			gotoxy(18, 12);
+			printf("-->");
+			if(key==13){
+				Read_Book();
+				system("cls");
+				Main_menu();
+			}
+		}if(menu == 3){
+			gotoxy(18, 14);
+			printf("-->");
+			if(key==13){
+				Update_Book();
+				system("cls");
+				Main_menu();
+			}
+		}if(menu == 4){
+			gotoxy(18, 16);
+			printf("-->");
+			if(key==13){
+				Delete_Book();
+				system("cls");
+				Main_menu();
+			}
+		}else if(menu == 5){
+			gotoxy(18, 18);
+			printf("-->");
+			if(key==13){
+				Search_Book();
+				system("cls");
+				Main_menu();
+			}
+		}else if(menu == 6){
+			gotoxy(18, 20);
+			printf("-->");
+			if(key==13){
+				Sort_Book();
+				system("cls");
+				Main_menu();
+			}
+		}else if(menu == 7){
+			gotoxy(18, 22);
+			printf("-->");
+			if(key==13){
+				system("cls");
+				ulang_animasi=0;
+				main();
+			}
+		}else if(menu == 8){
+			gotoxy(18, 24);
+			printf("-->");
+			if(key==13){
+				exit(0);
+			}
+		}
+		
+		gotoxy(0,28);
 	}
 }
 
@@ -503,9 +625,9 @@ void Sort_Book(){
 	if(Sort<1 || Sort>2) {
 		system("cls");
 		goto Sort;
-	} else if(Sort==1){
-		for(i = 0; i < totalbuku; i++) {
-			for(j = i + 1; j < totalbuku; j++) {
+	}else if(Sort==1){
+		for(i = 1; i <= totalbuku; i++) {
+			for(j = i + 1; j <= totalbuku; j++) {
 				if(strcmp(namabuku[i],namabuku[j])>0) {
 					strcpy(So,namabuku[i]);
 					strcpy(namabuku[i],namabuku[j]);
@@ -514,20 +636,6 @@ void Sort_Book(){
 			}
 		}
 		printf("\nSorted Books (Ascending):\n");
-		for(i=1; i <= totalbuku; i++) {
-			puts(namabuku[i]);
-		}
-	} else {
-		for(i = 0; i < totalbuku; i++) {
-			for(j = i + 1; j < totalbuku; j++) {
-				if(strcmp(namabuku[i],namabuku[j])<0) {
-					strcpy(So,namabuku[i]);
-					strcpy(namabuku[i],namabuku[j]);
-					strcpy(namabuku[j],So);
-				}
-			}
-		}
-		printf("\nSorted Books (Descending):\n");
 		for(i=1; i <= totalbuku; i++) {
 			puts(namabuku[i]);
 		}
