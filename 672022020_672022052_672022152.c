@@ -314,15 +314,15 @@ void Add_Book(){
 	}
 	
 	if(val == 0){
-		gotoxy(1,2);
+		gotoxy(1,3);
 		puts(namabuku[totalbuku]);
-		gotoxy(1,4);
+		gotoxy(1,5);
 		printf("Book successfully created.");
 		fp = fopen(namabuku[totalbuku], "w");
 		fclose(fp);
 		totalbuku++;
 	}else if(val > 0){
-		gotoxy(1,4);
+		gotoxy(1,5);
 		printf("Book already exists.");
 	}
 	
@@ -340,12 +340,22 @@ void Read_Book(){
 		fp = fopen(Manual, "r");
 		
 		if(fp!=NULL){
+			gotoxy(1,y);
 			printf("%s", Manual);
 			
+			y+=2;
+			
+			gotoxy(0,y);
 			while((read=fgetc(fp))!=EOF){
 				printf("%c",read);
 				isi++;
+				y++;
 			}
+			
+			if(y>25){
+				y=25;
+			}
+			
 			if(isi == 0){
 				y+=2;
 				gotoxy(1,y);
@@ -388,7 +398,8 @@ void Read_Book(){
 		fp = fopen(namabuku[nomor], "r");
 		
 		if(fp!=NULL){
-			
+			y+=2;
+			gotoxy(0,y);
 			while((read=fgetc(fp))!=EOF){
 				printf("%c",read);
 				isi++;
@@ -404,8 +415,7 @@ void Read_Book(){
 		}
 	}
 	
-	y+=2;
-	gotoxy(1,y);
+	gotoxy(1,25);
 	printf("Press Enter to go back to the main menu.");
 	
 	fclose(fp);
@@ -423,17 +433,18 @@ void Update_Book(){
 		
 		if(fp!=NULL){
 			fp = fopen(Manual, "w");
-			printf("Author: "); scanf(" %[^\n]s",&Book->Pengarang);
-			printf("Publisher: "); scanf(" %[^\n]s",&Book->Penerbit);
-			printf("Publication Date: "); scanf(" %[^\n]s",&Book->Tanggal_Terbit);
-			printf("PLace of Publication: "); scanf(" %[^\n]s",&Book->Tempat_Terbit);
-			fprintf(fp,"Title: %s\nAuthor: %s\nPublisher: %s\nPublication Date: %s\nPLace of Publication: %s\n", namabuku[a],Book->Pengarang,Book->Penerbit,Book->Tanggal_Terbit,Book->Tempat_Terbit);
+			printf("Author\t\t\t: "); scanf(" %[^\n]s",&Book->Pengarang);
+			printf("Publisher\t\t: "); scanf(" %[^\n]s",&Book->Penerbit);
+			printf("Publication Date\t: "); scanf(" %[^\n]s",&Book->Tanggal_Terbit);
+			printf("PLace of Publication\t: "); scanf(" %[^\n]s",&Book->Tempat_Terbit);
+			fprintf(fp,"Title\t\t\t: %s\nAuthor\t\t\t: %s\nPublisher\t\t: %s\nPublication Date\t: %s\nPLace of Publication\t: %s\n", Manual, Book->Pengarang,Book->Penerbit,Book->Tanggal_Terbit,Book->Tempat_Terbit);
 		    
 		    printf("\n\nAdd Data Sukses!!!");
 		}else{
 			gotoxy(1,y);
 			printf("Book not found.");
 		}
+		
 		fclose(fp);
 	}else{
 		system("cls");
@@ -447,7 +458,9 @@ void Update_Book(){
 	    	y++;
 		}
 		
-		printf("\nPilihan : ");
+		y++;
+		gotoxy(1,y);
+		printf("Pilihan : ");
 	}
 	
 	a = getch();
@@ -463,35 +476,17 @@ void Update_Book(){
 	else if(a == 56) a = 8;
 	else if(a == 57) a = 9;
 	
-	if(a == '0'){
-		Isi_judul_sendiri();
-		
-    	system("cls");
-    	
-	    fp = fopen(Manual, "w");
-	    
-	    printf("\nIsi : \n\n");
-		scanf(" %[^\n]", text);
-		
-		strcat(text, "\n");
-		
-		fprintf(fp, "%s", text);
-		
-	    fclose(fp);
-	    
-	    printf("\n\nAdd Data Sukses!!!");
-	    getch();
-	}else if(totalbuku != 1 && a < totalbuku){
+	if(totalbuku != 1 && a < totalbuku){
 		system("cls");
 		
 		fp = fopen(namabuku[a], "w");
-				
-		printf("Author: "); scanf(" %[^\n]s",&Book->Pengarang);
-		printf("Publisher: "); scanf(" %[^\n]s",&Book->Penerbit);
-		printf("Publication Date: "); scanf(" %[^\n]s",&Book->Tanggal_Terbit);
-		printf("PLace of Publication: "); scanf(" %[^\n]s",&Book->Tempat_Terbit);
-		fprintf(fp,"Title: %s\nAuthor: %s\nPublisher: %s\nPublication Date: %s\nPLace of Publication: %s\n", namabuku[a],Book->Pengarang,Book->Penerbit,Book->Tanggal_Terbit,Book->Tempat_Terbit);
 		
+		printf("Author\t\t\t: "); scanf(" %[^\n]s",&Book->Pengarang);
+		printf("Publisher\t\t: "); scanf(" %[^\n]s",&Book->Penerbit);
+		printf("Publication Date\t: "); scanf(" %[^\n]s",&Book->Tanggal_Terbit);
+		printf("PLace of Publication\t: "); scanf(" %[^\n]s",&Book->Tempat_Terbit);
+		fprintf(fp,"Title\t\t\t: %s\nAuthor\t\t\t: %s\nPublisher\t\t: %s\nPublication Date\t: %s\nPLace of Publication\t: %s\n", namabuku[a], Book->Pengarang,Book->Penerbit,Book->Tanggal_Terbit,Book->Tempat_Terbit);
+	    
 	    fclose(fp);
 	    
 	    printf("\n\nAdd Data Sukses!!!");
