@@ -580,16 +580,82 @@ void Delete_Book(){
 }
 
 void Search_Book(){
+	int ret, pilihan, isi=0;
+	char read;
+	
 	Isi_judul_sendiri();
 	fp = fopen(Manual, "r");
 	
 	if(fp!=NULL){
+		ulang:
 		gotoxy(1,3);
 		printf("Book Found : %s", Manual);
+		
+		gotoxy(1,5);
+		printf("1. Read Book");
+		gotoxy(1,6);
+		printf("2. Update Book");
+		gotoxy(1,7);
+		printf("3. Delete Book");
+		gotoxy(1,9);
+		printf("Ingin diapakan? "); scanf(" %i", &pilihan);
+		
+//		Read
+		if(pilihan == 1){
+			gotoxy(0,12);
+			
+			while((read=fgetc(fp))!=EOF){
+				printf("%c",read);
+				isi++;
+			}
+			
+			if(isi == 0){
+				gotoxy(1,12);
+				printf("(Buku ini belum ada isinya)");
+			}
+		}
+		
+//		add
+		else if(pilihan == 2){
+			fp = fopen(Manual, "w");
+			
+			system("cls");
+			gotoxy(1,1);
+			printf("Author\t\t\t: "); scanf(" %[^\n]s",&Book->Pengarang);
+			gotoxy(1,2);
+			printf("Publisher\t\t: "); scanf(" %[^\n]s",&Book->Penerbit);
+			gotoxy(1,3);
+			printf("Publication Date\t: "); scanf(" %[^\n]s",&Book->Tanggal_Terbit);
+			gotoxy(1,4);
+			printf("PLace of Publication\t: "); scanf(" %[^\n]s",&Book->Tempat_Terbit);
+			
+			fprintf(fp,"Title\t\t\t: %s\nAuthor\t\t\t: %s\nPublisher\t\t: %s\nPublication Date\t: %s\nPLace of Publication\t: %s\n", Manual, Book->Pengarang,Book->Penerbit,Book->Tanggal_Terbit,Book->Tempat_Terbit);
+		    
+		    gotoxy(5,7);
+		    printf("Add Data Sukses!!!");
+		}
+		
+//		dihapus
+		else if(pilihan == 3){
+			ret = remove(Manual);
+	    	
+	    	if(ret == 0) {
+		        printf("\nBook deleted successfully");
+		    }else{
+		        printf("\nError: unable to delete the Book");
+		    }
+		}
+		
+		else{
+			goto ulang;
+		}
+		
+		
+		
+		
     }else{
         printf("\nError: unable to find the Book");
     }
-    
     getch();
 }
 
