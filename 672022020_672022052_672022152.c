@@ -11,7 +11,7 @@ void gotoxy(int x, int y){
 
 FILE *fp;
 int Account, CheckUsername, CheckPassword[2], totalbuku = 1, ulang_animasi=0;
-char Username[20], login_failed = 0, namabuku[][50], Manual[100], ManualBook[100];
+char Username[20], Password[10], login_failed = 0, namabuku[][50], Manual[100], ManualBook[100];
 char alamat[100] = "E:\\School Property\\Tugas\\C Files 3\\TAS_ASDOS_ASD\\"; // ganti alamat sesuai lokasi file ini disimpan
 
 struct Book{
@@ -90,7 +90,7 @@ void Menu_Animation(){
 
 void Login(){
 	int i = 0, j = 0;
-	char Input, Password[10];
+	char Input;
 	
 	Login_Animation();
 	
@@ -164,8 +164,8 @@ void Main_menu(){
 	gotoxy(18,10);
 	printf("-->");
 	
-	gotoxy(14,4);
-    printf("Welcome to Sabeb's Library, %s!", Username);
+	gotoxy(10,4);
+    printf("Welcome to Sabeb's Library, %s %s!", Username, Password);
 	gotoxy(22,10);
 	printf("1. Add Book");
 	gotoxy(22,12);
@@ -184,9 +184,13 @@ void Main_menu(){
 	printf("8. Exit");
 	
 	while(key=getch()){
-		if(key=='s' || key==80){
+		if(key=='s'){
 			menu+=1;
-		}else if(key=='w' || key==72){
+		}else if(key=='w'){
+			menu-=1;
+		}else if(key==80){
+			menu+=1;
+		}else if(key==72){
 			menu-=1;
 		}
 		
@@ -202,8 +206,8 @@ void Main_menu(){
 		if(ulang_animasi==0){
 			system("cls");
 		}else{
-			gotoxy(14,4);
-		    printf("Welcome to Sabeb's Library, %s!", Username);
+			gotoxy(10,4);
+		    printf("Welcome to Sabeb's Library, %s %s!", Username, Password);
 			gotoxy(22,10);
 			printf("1. Add Book");
 			gotoxy(22,12);
