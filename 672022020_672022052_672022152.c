@@ -82,8 +82,8 @@ void Menu_Animation(){
 		}
 		
 		if(ulang_animasi==0){
-			for (i=1;i<=3000;i++)
-				for (j=1;j<=3000;j++);
+			for (i=1;i<=2500;i++)
+				for (j=1;j<=2500;j++);
 		}
 	}
 }
@@ -184,9 +184,9 @@ void Main_menu(){
 	printf("8. Exit");
 	
 	while(key=getch()){
-		if(key=='s'){
+		if(key=='s' || key==80){
 			menu+=1;
-		}else if(key=='w'){
+		}else if(key=='w' || key==72){
 			menu-=1;
 		}
 		
@@ -512,9 +512,9 @@ void Delete_Book(){
 			ret = remove(Manual);
 	    	
 	    	if(ret == 0) {
-		        printf("\nFile deleted successfully");
+		        printf("\nBook deleted successfully");
 		    }else{
-		        printf("\nError: unable to delete the file");
+		        printf("\nError: unable to delete the Book");
 		    }
 		}
 		else{
@@ -551,7 +551,7 @@ void Delete_Book(){
 	
 	if(totalbuku != 1 && a < totalbuku){
 		ret = remove(namabuku[a]);
-		printf("\n\nNama File yang ingin Dihapus : \"%s\"", namabuku[a]);
+		printf("\n\nNama Buku yang ingin Dihapus : \"%s\"", namabuku[a]);
 		
 		if(ret == 0) {
 			for(r = 1; r <= totalbuku; r++){
@@ -563,10 +563,10 @@ void Delete_Book(){
 					memset(namabuku[totalbuku], 0, sizeof(namabuku[totalbuku]));
 				}
 			}
-	        printf("\n\nFile deleted successfully");
+	        printf("\n\nBook deleted successfully");
 			totalbuku--;
 	    }else{
-	        printf("\n\nError: unable to delete the file");
+	        printf("\n\nError: unable to delete the Book");
 	    }
 	    getch();
 	}else if(totalbuku != 1){
@@ -576,36 +576,17 @@ void Delete_Book(){
 }
 
 void Search_Book(){
-	int nomor, y=1;
+	Isi_judul_sendiri();
+	fp = fopen(Manual, "r");
 	
-	system("cls");
-	y++;
-	gotoxy(1,y);
-	printf("Select the book you want to search: ");
-	scanf(" %i", &nomor);
-	nomor = getch();
-	printf("%c ", nomor);
-	if(nomor == 49) nomor = 1;
-	else if(nomor == 50) nomor = 2;
-	else if(nomor == 51) nomor = 3;
-	else if(nomor == 52) nomor = 4;
-	else if(nomor == 53) nomor = 5;
-	else if(nomor == 54) nomor = 6;
-	else if(nomor == 55) nomor = 7;
-	else if(nomor == 56) nomor = 8;
-	else if(nomor == 57) nomor = 9;
-	else nomor = 0;
-
-	y++;
-	int idx=0,pos=-1;
-	for (idx = 0 ; idx < sizeof(namabuku[nomor]) ; idx++){
-		if (strcmp(namabuku[idx],namabuku[nomor])==0){
-			pos = idx;
-			break;
-		}
-	}
-
-	printf("%s\n",namabuku[pos]);
+	if(fp!=NULL){
+		gotoxy(1,3);
+		printf("Book Found : %s", Manual);
+    }else{
+        printf("\nError: unable to find the Book");
+    }
+    
+    getch();
 }
 
 void Sort_Book(){
