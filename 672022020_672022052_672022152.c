@@ -670,7 +670,7 @@ void Sort_Book(){
 	
 	if(Sort<1 || Sort>2) {
 		system("cls");
-		goto Sort;
+		Main_menu();
 	}else if(Sort==1){
 		for(i = 1; i < totalbuku; i++) {
 			for(j = i + 1; j < totalbuku; j++) {
