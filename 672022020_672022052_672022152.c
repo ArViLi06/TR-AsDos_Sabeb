@@ -635,8 +635,8 @@ void Sort_Book(){
 			puts(namabuku[i]);
 		}
 	}else{
-		for(i = 0; i < totalbuku; i++) {
-			for(j = i + 1; j < totalbuku; j++) {
+		for(i = 1; i <= totalbuku; i++) {
+			for(j = i + 1; j <= totalbuku; j++) {
 				if(strcmp(namabuku[i],namabuku[j])<0) {
 					strcpy(So,namabuku[i]);
 					strcpy(namabuku[i],namabuku[j]);
