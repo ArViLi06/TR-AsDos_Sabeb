@@ -9,8 +9,8 @@ void gotoxy(int x, int y){
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
 
-int kebutuhan_gizi = 300;
-int gizi[]={80, 75, 90, 50, 70, 50, 80};
+int kebutuhan_gizi = 2000;
+int gizi[]={680, 628, 740, 600, 480, 320, 290};
 int uang;
     
 struct perbandingan{
@@ -33,13 +33,13 @@ int sort(const void *v1, const void *v2){
 }
 
 int main(){
-	struct perbandingan banding[]={{0, 0, "Nasi rames tanpa daging", 10000}, {0, 0, "Combo meal KFC", 29000}, {0, 0, "Nasi goreng dengan daging", 13000}, {0, 0, "Indomie goreng", 2600}, {0, 0, "PizzaHut MY BOX", 35000}, {0, 0, "Popmie", 5200}, {0, 0, "Chicken katsu OTI", 12000}};
+	struct perbandingan banding[]={{0, 0, "Nasi rames tanpa daging", 10000}, {0, 0, "Combo meal KFC", 32000}, {0, 0, "Nasi goreng dengan daging", 12000}, {0, 0, "Indomie goreng", 3100}, {0, 0, "PizzaHut Pepperoni", 101000}, {0, 0, "Popmie", 5200}, {0, 0, "Chicken katsu OTI", 12000}};
 	
     int sisa_uang = 0;
     int banyak_makanan = 0;
     int i;
-    char makanan[][40]={"Nasi rames tanpa daging", "Combo meal KFC", "Nasi goreng dengan daging", "Indomie goreng", "PizzaHut MY BOX", "Popmie", "Chicken katsu OTI"};
-	int harga[]={10000, 29000, 13000, 2600, 35000, 5200, 12000};
+    char makanan[][40]={"Nasi rames tanpa daging", "Combo meal KFC", "Nasi goreng dengan daging", "Indomie goreng", "PizzaHut Pepperoni", "Popmie", "Chicken katsu OTI"};
+	int harga[]={10000, 32000, 12000, 3100, 101000, 5200, 12000};
     
     system("cls");
     
@@ -91,13 +91,18 @@ int main(){
 		banding[i].gizi = kebutuhan_gizi/gizi[i];
 		
     	check:
-		if((banding[i].harga = banding[i].harga_asli * banding[i].gizi) <= uang){
-	    	banding[i].harga = banding[i].harga_asli * banding[i].gizi;
-		}else if((banding[i].harga = banding[i].harga_asli * banding[i].gizi) > uang){
+		if((banding[i].harga_asli * banding[i].gizi) > uang){
 			banding[i].gizi -= 1;
 			goto check;
+		}else if((banding[i].harga_asli * banding[i].gizi) <= uang){
+			if((banding[i].harga_asli * (banding[i].gizi + 1)) <= uang && (banding[i].gizi + 1) * gizi[i] <= kebutuhan_gizi + 650){
+				banding[i].gizi += 1;
+	    		banding[i].harga = banding[i].harga_asli * banding[i].gizi;
+				goto check;
+			}
+	    	banding[i].harga = banding[i].harga_asli * banding[i].gizi;
 		}
-    	
+		
 //    					cara kerja
 //    	printf("\n%i", banding[i].harga_asli);
 //		printf(" %i", banding[i].gizi);
@@ -105,6 +110,7 @@ int main(){
 //    	printf(" %s", banding[i].makanan);
 //    	printf(" total : %i", banding[i].harga);
 	}
+	
 	
 	for(i=0;i<7;i++){
 		banding[i].gizi = banding[i].gizi*gizi[i];
@@ -114,7 +120,6 @@ int main(){
 	
 //						cara kerja setelah di sorting
 //	printf("\n");
-//	
 //	for(i=0;i<7;i++){
 //    	printf("\n%i", banding[i].harga_asli);
 //		printf(" %i", banding[i].gizi);
@@ -128,17 +133,19 @@ int main(){
 	}else{
 		gotoxy(65,7);
 		printf("Makanan yang paling optimal \t: %s", banding[0].makanan);
-		gotoxy(65,8);
-	    printf("Hanya dengan memakan makanan tersebut sebanyak %i kali", banding[0].harga/banding[0].harga_asli);
 		gotoxy(65,9);
-		printf("Kamu mendapatkan total gizi \t: %i", banding[0].gizi);
+	    printf("Hanya dengan memakan makanan tersebut sebanyak %i kali", banding[0].harga/banding[0].harga_asli);
 		gotoxy(65,10);
-		printf("Uang yang dihabiskan \t\t: %i", banding[0].harga);
+		printf("Kamu mendapatkan total gizi \t: %i", banding[0].gizi, kebutuhan_gizi, kebutuhan_gizi+650);
 		gotoxy(65,11);
+		printf("Sedangkan remaja membutuhkan sebanyak %i - %i per hari", kebutuhan_gizi, kebutuhan_gizi+650);
+		gotoxy(65,12);
+		printf("Uang yang dihabiskan \t\t: %i", banding[0].harga);
+		gotoxy(65,13);
 		printf("Sisa uang kamu \t\t: %d\n\n\n", uang - banding[0].harga);
 	}
 	
-	gotoxy(65,13);
+	gotoxy(65,15);
 	
 	system("pause");
 	main();
