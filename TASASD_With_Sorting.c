@@ -64,7 +64,7 @@ int main(){
 	
     int sisa_uang = 0;
     int banyak_makanan = 0;
-    int i;
+    int i, y;
     char makanan[][40]={"Nasi rames tanpa daging", "Combo meal KFC", "Nasi goreng dengan daging", "Indomie goreng", "PizzaHut Pepperoni", "Popmie", "Chicken katsu OTI"};
 	int harga[]={10000, 32000, 12000, 3100, 101000, 5200, 12000};
     
@@ -115,6 +115,8 @@ int main(){
     
     sisa_uang = uang;
     
+    y=19;
+    
     for(i=0;i<7;i++){
 		banding[i].kalori = kebutuhan_kalori/kalori[i];
 		
@@ -132,13 +134,14 @@ int main(){
 		}
 		
 //    					cara kerja
-//    	printf("\n%i", banding[i].harga_asli);
-//		printf(" %i", banding[i].kalori);
-//		printf(" Gizi : %i", banding[i].kalori*kalori[i]);
-//    	printf(" %s", banding[i].makanan);
-//    	printf(" total : %i", banding[i].harga);
+		gotoxy(0, y);
+		printf("%i", banding[i].harga_asli);
+		printf(" %i", banding[i].kalori);
+		printf(" Kalori : %i", banding[i].kalori*kalori[i]);
+    	printf(" %s", banding[i].makanan);
+    	printf(" total : %i", banding[i].harga);
+    	y++;
 	}
-	
 	
 	for(i=0;i<7;i++){
 		banding[i].kalori = banding[i].kalori*kalori[i];
@@ -147,15 +150,17 @@ int main(){
 	qsort(banding, 7, sizeof(struct perbandingan), sort);
 	
 //						cara kerja setelah di sorting
-//	printf("\n");
-//	for(i=0;i<7;i++){
-//    	printf("\n%i", banding[i].harga_asli);
-//		printf(" %i", banding[i].kalori);
-//    	printf(" %s", banding[i].makanan);
-//    	printf(" total : %i", banding[i].harga);
-//	}
+	y++;
+	for(i=0;i<7;i++){
+		gotoxy(1, y);
+    	printf("%i", banding[i].harga_asli);
+		printf(" %i", banding[i].kalori);
+    	printf(" %s", banding[i].makanan);
+    	printf(" total : %i", banding[i].harga);
+    	y++;
+	}
 	
-	if(uang < 2600){
+	if(uang < 3100){
 		gotoxy(68,7);
 		printf("Kamu terlalu miskin untuk membeli makanan...");
 	}else{
@@ -164,18 +169,25 @@ int main(){
 		gotoxy(68,9);
 	    printf("Hanya dengan memakan makanan tersebut sebanyak %i kali", banding[0].harga/banding[0].harga_asli);
 		gotoxy(68,10);
-		printf("Kamu mendapatkan total gizi \t: %i", banding[0].kalori, kebutuhan_kalori, kebutuhan_kalori+650);
+		printf("Kamu mendapatkan total kalori \t: %i", banding[0].kalori);
 		gotoxy(68,11);
 		printf("Sedangkan remaja membutuhkan sebanyak %i - %i per hari", kebutuhan_kalori, kebutuhan_kalori+650);
 		gotoxy(68,12);
 		printf("Uang yang dihabiskan \t\t: %i", banding[0].harga);
 		gotoxy(68,13);
-		printf("Sisa uang kamu \t\t: %d\n\n\n", uang - banding[0].harga);
+		printf("Sisa uang kamu \t\t\t: %d", uang - banding[0].harga);
+		if(banding[0].kalori >= 2000){
+			gotoxy(70,15);
+			printf("Kebutuhan kalorimu terpenuhi");
+		}else{
+			gotoxy(70,15);
+			printf("Kebutuhan kalorimu tidak terpenuhi");
+		}
 	}
 	
 	ulang++;
 	
-	gotoxy(67,15);
+	gotoxy(68,17);
 	
 	system("pause");
 	main();
